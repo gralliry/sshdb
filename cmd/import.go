@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gralliry/sshgen/db"
-	"github.com/gralliry/sshgen/util"
+	"github.com/gralliry/sshdb/db"
+	"github.com/gralliry/sshdb/util"
 
 	"golang.org/x/crypto/ssh"
 	"gorm.io/gorm"

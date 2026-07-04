@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/gralliry/sshgen/util"
+	"github.com/gralliry/sshdb/util"
 
 	"github.com/spf13/cobra"
 )

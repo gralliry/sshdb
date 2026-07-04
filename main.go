@@ -1,6 +1,6 @@
 package main
 
-import "github.com/gralliry/sshgen/cmd"
+import "github.com/gralliry/sshdb/cmd"
 
 func main() {
 	cmd.Execute()

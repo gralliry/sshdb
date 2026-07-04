@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gralliry/sshgen/db"
+	"github.com/gralliry/sshdb/db"
 
 	"github.com/spf13/cobra"
 )

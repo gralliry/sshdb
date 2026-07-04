@@ -1,4 +1,4 @@
-module github.com/gralliry/sshgen
+module github.com/gralliry/sshdb
 
 go 1.26.1
 

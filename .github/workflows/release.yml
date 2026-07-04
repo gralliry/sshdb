@@ -46,12 +46,12 @@ jobs:
       - name: Build
         run: |
           GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
-            go build -o sshgen_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.ext }} .
+            go build -o sshdb_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.ext }} .
 
       - uses: actions/upload-artifact@v4
         with:
-          name: sshgen_${{ matrix.goos }}_${{ matrix.goarch }}
-          path: sshgen_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.ext }}
+          name: sshdb_${{ matrix.goos }}_${{ matrix.goarch }}
+          path: sshdb_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.ext }}
 
   create-release:
     needs: release
@@ -73,7 +73,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: sshgen ${{ github.ref_name }}
+          name: sshdb ${{ github.ref_name }}
           body: |
             See [CHANGELOG](CHANGELOG.md) for details.
           files: |

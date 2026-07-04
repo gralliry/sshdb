@@ -1,6 +1,6 @@
 # Go
-sshgen
-sshgen.exe
+sshdb
+sshdb.exe
 *.exe
 *.test
 *.out

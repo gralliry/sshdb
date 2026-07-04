@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/gralliry/sshgen/db"
+	"github.com/gralliry/sshdb/db"
 
 	"gorm.io/gorm"
 )

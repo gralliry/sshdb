@@ -1,19 +1,19 @@
-// Package cmd defines the CLI commands for sshgen using Cobra.
+// Package cmd defines the CLI commands for sshdb using Cobra.
 package cmd
 
 import (
 	"fmt"
 	"os"
 
-	"github.com/gralliry/sshgen/db"
+	"github.com/gralliry/sshdb/db"
 
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "sshgen",
-	Short: "SSH key management tool",
-	Long: `sshgen — SSH key lifecycle management
+	Use:   "sshdb",
+	Short: "SSH key management",
+	Long: `sshdb — SSH key lifecycle management
 
 Create, list, delete, import, and export SSH key pairs.
 All key metadata is stored in ~/.ssh/sshgen.db (SQLite).`,
