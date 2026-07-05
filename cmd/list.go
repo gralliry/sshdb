@@ -13,7 +13,7 @@ import (
 func listFunc(_ *cobra.Command, _ []string) {
 	var records []db.Key
 	if err := db.Conn().Order("created_at DESC").Find(&records).Error; err != nil {
-		fmt.Fprintf(os.Stderr, "Error: query database: %v\n", err)
+		fmt.Fprintf(os.Stderr, "query database: %v\n", err)
 		return
 	}
 	if len(records) == 0 {

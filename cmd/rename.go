@@ -12,27 +12,27 @@ import (
 func renameFunc(_ *cobra.Command, args []string) {
 	oldName, newName := args[0], args[1]
 	if ok, err := Exists(oldName); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "%v\n", err)
 		return
 	} else if !ok {
-		fmt.Fprintf(os.Stderr, "Error: key %q not found\n", oldName)
+		fmt.Fprintf(os.Stderr, "key %q not found\n", oldName)
 		return
 	}
 	if ok, err := Exists(newName); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "%v\n", err)
 		return
 	} else if ok {
-		fmt.Fprintf(os.Stderr, "Error: key %q already exists\n", newName)
+		fmt.Fprintf(os.Stderr, "key %q already exists\n", newName)
 		return
 	}
 
 	result := db.Conn().Model(&db.Key{}).Where("name = ?", oldName).Update("name", newName)
 	if result.Error != nil {
-		fmt.Fprintf(os.Stderr, "Error: rename in database: %v\n", result.Error)
+		fmt.Fprintf(os.Stderr, "rename in database: %v\n", result.Error)
 		return
 	}
 	if result.RowsAffected == 0 {
-		fmt.Fprintf(os.Stderr, "Error: key %q not found\n", oldName)
+		fmt.Fprintf(os.Stderr, "key %q not found\n", oldName)
 		return
 	}
 	fmt.Fprintf(os.Stderr, "Renamed %q → %q\n", oldName, newName)

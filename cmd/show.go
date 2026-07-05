@@ -11,7 +11,7 @@ func showFunc(_ *cobra.Command, args []string) {
 	name := args[0]
 	rec, err := Get(name)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "%v\n", err)
 		return
 	}
 

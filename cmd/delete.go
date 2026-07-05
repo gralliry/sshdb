@@ -13,11 +13,11 @@ func deleteFunc(_ *cobra.Command, args []string) {
 	name := args[0]
 	result := db.Conn().Where("name = ?", name).Delete(&db.Key{})
 	if result.Error != nil {
-		fmt.Fprintf(os.Stderr, "Error: delete from database: %v\n", result.Error)
+		fmt.Fprintf(os.Stderr, "delete from database: %v\n", result.Error)
 		return
 	}
 	if result.RowsAffected == 0 {
-		fmt.Fprintf(os.Stderr, "Error: key %q not found\n", name)
+		fmt.Fprintf(os.Stderr, "key %q not found\n", name)
 		return
 	}
 	fmt.Fprintf(os.Stderr, "Key %q deleted\n", name)

@@ -20,7 +20,7 @@ All key metadata is stored in ~/.ssh/sshgen.db (SQLite).`,
 	SilenceErrors: true,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		if err := db.Init(); err != nil {
-			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+			fmt.Fprintf(os.Stderr, "%v\n", err)
 			os.Exit(1)
 		}
 	},
@@ -32,7 +32,7 @@ All key metadata is stored in ~/.ssh/sshgen.db (SQLite).`,
 // Execute is the entry point for the CLI, called from main.go.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "%v\n", err)
 		os.Exit(1)
 	}
 }
