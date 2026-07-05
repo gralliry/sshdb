@@ -53,11 +53,11 @@ func exportFunc(cmd *cobra.Command, args []string) {
 	}
 
 	if err := util.WriteFile(privPath, rec.PrivateKey, 0600); err != nil {
-		fmt.Fprintf(os.Stderr, "write private key: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Write private key: %v\n", err)
 		return
 	}
 	if err := util.WriteFile(pubPath, rec.PublicKey, 0644); err != nil {
-		fmt.Fprintf(os.Stderr, "write public key: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Write public key: %v\n", err)
 		return
 	}
 

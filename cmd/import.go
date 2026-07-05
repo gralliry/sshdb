@@ -34,22 +34,22 @@ func importFunc(cmd *cobra.Command, args []string) {
 
 	privBytes, err := os.ReadFile(privPath)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "read private key: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Read private key: %v\n", err)
 		return
 	}
 	if _, err := ssh.ParsePrivateKey(privBytes); err != nil {
-		fmt.Fprintf(os.Stderr, "invalid private key: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Invalid private key: %v\n", err)
 		return
 	}
 
 	pubBytes, err := os.ReadFile(pubPath)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "read public key: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Read public key: %v\n", err)
 		return
 	}
 	keyType, comment, fingerprint, err := util.ParsePublicKey(pubBytes)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "invalid public key: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Invalid public key: %v\n", err)
 		return
 	}
 
@@ -58,10 +58,10 @@ func importFunc(cmd *cobra.Command, args []string) {
 		Fingerprint: fingerprint, PrivateKey: privBytes, PublicKey: pubBytes,
 	}).Error; err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) || strings.Contains(err.Error(), "UNIQUE") {
-			fmt.Fprintf(os.Stderr, "key %q already exists\n", name)
+			fmt.Fprintf(os.Stderr, "Key %q already exists\n", name)
 			return
 		}
-		fmt.Fprintf(os.Stderr, "write to database: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Write to database: %v\n", err)
 		return
 	}
 
