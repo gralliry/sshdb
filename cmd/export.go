@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func exportFunc(cmd *cobra.Command, args []string) error {
+func exportFunc(cmd *cobra.Command, args []string) {
 	name := args[0]
 	outputDir, _ := cmd.Flags().GetString("output")
 	if outputDir == "" {
@@ -22,7 +22,7 @@ func exportFunc(cmd *cobra.Command, args []string) error {
 	rec, err := Get(name)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
-		return nil
+		return
 	}
 	if privPath == "" {
 		privPath = filepath.Join(outputDir, name)
@@ -48,19 +48,21 @@ func exportFunc(cmd *cobra.Command, args []string) error {
 		fmt.Scanln(&answer)
 		if answer != "y" && answer != "Y" {
 			fmt.Fprintln(os.Stderr, "Cancelled")
-			return nil
+			return
 		}
 	}
 
 	if err := util.WriteFile(privPath, rec.PrivateKey, 0600); err != nil {
-		return fmt.Errorf("write private key: %w", err)
+		fmt.Fprintf(os.Stderr, "Error: write private key: %v\n", err)
+		return
 	}
 	if err := util.WriteFile(pubPath, rec.PublicKey, 0644); err != nil {
-		return fmt.Errorf("write public key: %w", err)
+		fmt.Fprintf(os.Stderr, "Error: write public key: %v\n", err)
+		return
 	}
 
 	fmt.Fprintf(os.Stderr, "Exported to:\n  %s\n  %s\n", privPath, pubPath)
-	return nil
+	return
 }
 
 var exportCmd = &cobra.Command{
@@ -72,7 +74,7 @@ var exportCmd = &cobra.Command{
 Default output paths: <output>/<name> and <output>/<name>.pub.
 Use --priv / --pub to specify custom paths.`,
 	Args: cobra.ExactArgs(1),
-	RunE: exportFunc,
+	Run: exportFunc,
 }
 
 func init() {

@@ -16,7 +16,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func importFunc(cmd *cobra.Command, args []string) error {
+func importFunc(cmd *cobra.Command, args []string) {
 	name := args[0]
 	inputDir, _ := cmd.Flags().GetString("input")
 	if inputDir == "" {
@@ -34,19 +34,23 @@ func importFunc(cmd *cobra.Command, args []string) error {
 
 	privBytes, err := os.ReadFile(privPath)
 	if err != nil {
-		return fmt.Errorf("read private key: %w", err)
+		fmt.Fprintf(os.Stderr, "Error: read private key: %v\n", err)
+		return
 	}
 	if _, err := ssh.ParsePrivateKey(privBytes); err != nil {
-		return fmt.Errorf("invalid private key: %w", err)
+		fmt.Fprintf(os.Stderr, "Error: invalid private key: %v\n", err)
+		return
 	}
 
 	pubBytes, err := os.ReadFile(pubPath)
 	if err != nil {
-		return fmt.Errorf("read public key: %w", err)
+		fmt.Fprintf(os.Stderr, "Error: read public key: %v\n", err)
+		return
 	}
 	keyType, comment, fingerprint, err := util.ParsePublicKey(pubBytes)
 	if err != nil {
-		return fmt.Errorf("invalid public key: %w", err)
+		fmt.Fprintf(os.Stderr, "Error: invalid public key: %v\n", err)
+		return
 	}
 
 	if err := db.Conn().Create(&db.Key{
@@ -55,13 +59,14 @@ func importFunc(cmd *cobra.Command, args []string) error {
 	}).Error; err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) || strings.Contains(err.Error(), "UNIQUE") {
 			fmt.Fprintf(os.Stderr, "Error: key %q already exists\n", name)
-			return nil
+			return
 		}
-		return fmt.Errorf("write to database: %w", err)
+		fmt.Fprintf(os.Stderr, "Error: write to database: %v\n", err)
+		return
 	}
 
 	fmt.Fprintf(os.Stderr, "Imported: %s (%s)\n", name, fingerprint)
-	return nil
+	return
 }
 
 var importCmd = &cobra.Command{
@@ -73,7 +78,7 @@ var importCmd = &cobra.Command{
 By default it looks for <name> and <name>.pub in the current directory.
 Use --priv / --pub to specify custom paths.`,
 	Args: cobra.ExactArgs(1),
-	RunE: importFunc,
+	Run: importFunc,
 }
 
 func init() {

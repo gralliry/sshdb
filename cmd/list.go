@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/gralliry/sshdb/db"
@@ -9,14 +10,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func listFunc(_ *cobra.Command, _ []string) error {
+func listFunc(_ *cobra.Command, _ []string) {
 	var records []db.Key
 	if err := db.Conn().Order("created_at DESC").Find(&records).Error; err != nil {
-		return fmt.Errorf("query db: %w", err)
+		fmt.Fprintf(os.Stderr, "Error: query database: %v\n", err)
+		return
 	}
 	if len(records) == 0 {
 		fmt.Println("(no keys)")
-		return nil
+		return
 	}
 
 	const fmtStr = "%-14s %-14s  %-14s  %-19s  %s"
@@ -30,7 +32,7 @@ func listFunc(_ *cobra.Command, _ []string) error {
 		}
 		fmt.Printf(fmtStr+"\n", r.Name, r.Type, r.Comment, created, r.Fingerprint)
 	}
-	return nil
+	return
 }
 
 var listCmd = &cobra.Command{
@@ -39,7 +41,7 @@ var listCmd = &cobra.Command{
 	Short:   "List all keys",
 	Long:    `List all SSH keys in the database.`,
 	Args:    cobra.NoArgs,
-	RunE:    listFunc,
+	Run:    listFunc,
 }
 
 func init() {

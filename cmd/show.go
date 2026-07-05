@@ -7,17 +7,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func showFunc(_ *cobra.Command, args []string) error {
+func showFunc(_ *cobra.Command, args []string) {
 	name := args[0]
 	rec, err := Get(name)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
-		return nil
+		return
 	}
 
 	fmt.Printf("Private key:\n%s\n", string(rec.PrivateKey))
 	fmt.Printf("Public key:\n%s\n", string(rec.PublicKey))
-	return nil
+	return
 }
 
 var showCmd = &cobra.Command{
@@ -26,7 +26,7 @@ var showCmd = &cobra.Command{
 	Short:   "Show key contents",
 	Long:    `Print the private and public key data for a given key.`,
 	Args:    cobra.ExactArgs(1),
-	RunE:    showFunc,
+	Run:    showFunc,
 }
 
 func init() {

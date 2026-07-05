@@ -9,31 +9,34 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func renameFunc(_ *cobra.Command, args []string) error {
+func renameFunc(_ *cobra.Command, args []string) {
 	oldName, newName := args[0], args[1]
 	if ok, err := Exists(oldName); err != nil {
-		return err
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		return
 	} else if !ok {
 		fmt.Fprintf(os.Stderr, "Error: key %q not found\n", oldName)
-		return nil
+		return
 	}
 	if ok, err := Exists(newName); err != nil {
-		return err
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		return
 	} else if ok {
 		fmt.Fprintf(os.Stderr, "Error: key %q already exists\n", newName)
-		return nil
+		return
 	}
 
 	result := db.Conn().Model(&db.Key{}).Where("name = ?", oldName).Update("name", newName)
 	if result.Error != nil {
-		return fmt.Errorf("rename in database: %w", result.Error)
+		fmt.Fprintf(os.Stderr, "Error: rename in database: %v\n", result.Error)
+		return
 	}
 	if result.RowsAffected == 0 {
 		fmt.Fprintf(os.Stderr, "Error: key %q not found\n", oldName)
-		return nil
+		return
 	}
 	fmt.Fprintf(os.Stderr, "Renamed %q → %q\n", oldName, newName)
-	return nil
+	return
 }
 
 var renameCmd = &cobra.Command{
@@ -42,7 +45,7 @@ var renameCmd = &cobra.Command{
 	Short:   "Rename key",
 	Long:    `Change the name of a key in the database.`,
 	Args:    cobra.ExactArgs(2),
-	RunE:    renameFunc,
+	Run:    renameFunc,
 }
 
 func init() {
