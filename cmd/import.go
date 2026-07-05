@@ -71,7 +71,7 @@ var importCmd = &cobra.Command{
 
 By default it looks for <name> and <name>.pub in the current directory.
 Use --priv / --pub to specify custom paths.`,
-	Args: cobra.ExactArgs(1),
+	Args: exactArgs(1),
 	RunE: importFunc,
 }
 

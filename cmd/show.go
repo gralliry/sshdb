@@ -23,7 +23,7 @@ var showCmd = &cobra.Command{
 	Aliases: []string{"s"},
 	Short:   "Show key contents",
 	Long:    `Print the private and public key data for a given key.`,
-	Args:    cobra.ExactArgs(1),
+	Args:    exactArgs(1),
 	RunE:    showFunc,
 }
 
