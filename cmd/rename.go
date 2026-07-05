@@ -15,14 +15,14 @@ func renameFunc(_ *cobra.Command, args []string) {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
 		return
 	} else if !ok {
-		fmt.Fprintf(os.Stderr, "Key %q not found\n", oldName)
+		fmt.Fprintf(os.Stderr, "Name %q not found\n", oldName)
 		return
 	}
 	if ok, err := Exists(newName); err != nil {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
 		return
 	} else if ok {
-		fmt.Fprintf(os.Stderr, "Key %q already exists\n", newName)
+		fmt.Fprintf(os.Stderr, "Name %q already exists\n", newName)
 		return
 	}
 
@@ -32,7 +32,7 @@ func renameFunc(_ *cobra.Command, args []string) {
 		return
 	}
 	if result.RowsAffected == 0 {
-		fmt.Fprintf(os.Stderr, "Key %q not found\n", oldName)
+		fmt.Fprintf(os.Stderr, "Name %q not found\n", oldName)
 		return
 	}
 	fmt.Fprintf(os.Stderr, "Renamed %q → %q\n", oldName, newName)

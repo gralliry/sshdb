@@ -16,7 +16,7 @@ func Get(name string) (*db.Key, error) {
 		return &rec, nil
 	}
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, fmt.Errorf("Key %q not found", name)
+		return nil, fmt.Errorf("Name %q not found", name)
 	}
 	return nil, fmt.Errorf("Look up key %q: %w", name, err)
 }

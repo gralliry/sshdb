@@ -17,10 +17,10 @@ func deleteFunc(_ *cobra.Command, args []string) {
 		return
 	}
 	if result.RowsAffected == 0 {
-		fmt.Fprintf(os.Stderr, "Key %q not found\n", name)
+		fmt.Fprintf(os.Stderr, "Name %q not found\n", name)
 		return
 	}
-	fmt.Fprintf(os.Stderr, "Key %q deleted\n", name)
+	fmt.Fprintf(os.Stderr, "Name %q deleted\n", name)
 }
 
 var deleteCmd = &cobra.Command{
