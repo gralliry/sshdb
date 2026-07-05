@@ -18,11 +18,14 @@ var rootCmd = &cobra.Command{
 Create, list, delete, import, and export SSH key pairs.
 All key metadata is stored in ~/.ssh/sshgen.db (SQLite).`,
 	SilenceErrors: true,
-	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-		return db.Init()
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		if err := db.Init(); err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+			os.Exit(1)
+		}
 	},
-	RunE: func(cmd *cobra.Command, args []string) error {
-		return cmd.Help()
+	Run: func(cmd *cobra.Command, args []string) {
+		cmd.Help()
 	},
 }
 
