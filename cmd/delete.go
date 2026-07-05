@@ -21,7 +21,6 @@ func deleteFunc(_ *cobra.Command, args []string) {
 		return
 	}
 	fmt.Fprintf(os.Stderr, "Key %q deleted\n", name)
-	return
 }
 
 var deleteCmd = &cobra.Command{
@@ -30,7 +29,7 @@ var deleteCmd = &cobra.Command{
 	Short:   "Delete key",
 	Long:    `Remove an SSH key from the database.`,
 	Args:    cobra.ExactArgs(1),
-	Run:    deleteFunc,
+	Run:     deleteFunc,
 }
 
 func init() {

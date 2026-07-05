@@ -36,7 +36,6 @@ func renameFunc(_ *cobra.Command, args []string) {
 		return
 	}
 	fmt.Fprintf(os.Stderr, "Renamed %q → %q\n", oldName, newName)
-	return
 }
 
 var renameCmd = &cobra.Command{

@@ -17,7 +17,6 @@ func showFunc(_ *cobra.Command, args []string) {
 
 	fmt.Printf("Private key:\n%s\n", string(rec.PrivateKey))
 	fmt.Printf("Public key:\n%s\n", string(rec.PublicKey))
-	return
 }
 
 var showCmd = &cobra.Command{

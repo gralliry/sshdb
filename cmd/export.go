@@ -62,7 +62,6 @@ func exportFunc(cmd *cobra.Command, args []string) {
 	}
 
 	fmt.Fprintf(os.Stderr, "Exported to:\n  %s\n  %s\n", privPath, pubPath)
-	return
 }
 
 var exportCmd = &cobra.Command{
@@ -74,7 +73,7 @@ var exportCmd = &cobra.Command{
 Default output paths: <output>/<name> and <output>/<name>.pub.
 Use --priv / --pub to specify custom paths.`,
 	Args: cobra.ExactArgs(1),
-	Run: exportFunc,
+	Run:  exportFunc,
 }
 
 func init() {

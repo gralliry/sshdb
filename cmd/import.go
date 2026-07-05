@@ -66,7 +66,6 @@ func importFunc(cmd *cobra.Command, args []string) {
 	}
 
 	fmt.Fprintf(os.Stderr, "Imported: %s (%s)\n", name, fingerprint)
-	return
 }
 
 var importCmd = &cobra.Command{

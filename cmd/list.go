@@ -32,7 +32,6 @@ func listFunc(_ *cobra.Command, _ []string) {
 		}
 		fmt.Printf(fmtStr+"\n", r.Name, r.Type, r.Comment, created, r.Fingerprint)
 	}
-	return
 }
 
 var listCmd = &cobra.Command{
