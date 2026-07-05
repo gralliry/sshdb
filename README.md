@@ -5,6 +5,7 @@ Store, organize, and export SSH keys in a local SQLite database.
 ```
 sshdb import mykey -i ~/.ssh/
 sshdb list
+sshdb show mykey
 sshdb export mykey -o ~/.ssh/
 sshdb rename old new
 sshdb delete mykey
@@ -16,11 +17,17 @@ sshdb delete mykey
 
 ```
 $ sshdb list
-Name           Type            Comment         Created     Fingerprint
-── ────        ────            ───────         ───────     ──────────
-alice@work     ssh-ed25519     alice corp key  2026-07-05  SHA256:OMVrasDoW7ZPpiHPEr0LQeI9bjXMuGKVWVPQxMvAPCw
-server-a       ssh-ed25519     web-server-01   2026-07-05  SHA256:SZDUjAF/DlcF3lbVhLoli3Ie3H0RirFu7au1nmkyoYg
-demo-key       ssh-ed25519                     2026-07-05  SHA256:yta6qxs5hPsNBrcSStE0PAdXlY5X3sa1RTCW76y+S4w
+Name           Type            Comment         Created              Fingerprint
+───────────────────────────────────────────────────────────────────────────────
+alice@work     ssh-ed25519     alice corp key  2026-07-05 02:53:31  SHA256:OMVrasDoW7ZPpiHPEr0LQeI9bjXMuGKVWVPQxMvAPCw
+```
+
+### Show
+
+Print the private and public key contents for a given name:
+
+```bash
+sshdb show mykey
 ```
 
 ### Import
