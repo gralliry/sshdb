@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -10,7 +11,8 @@ func showFunc(_ *cobra.Command, args []string) error {
 	name := args[0]
 	rec, err := Get(name)
 	if err != nil {
-		return err
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		return nil
 	}
 
 	fmt.Printf("Private key:\n%s\n", string(rec.PrivateKey))

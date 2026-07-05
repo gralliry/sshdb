@@ -54,7 +54,8 @@ func importFunc(cmd *cobra.Command, args []string) error {
 		Fingerprint: fingerprint, PrivateKey: privBytes, PublicKey: pubBytes,
 	}).Error; err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) || strings.Contains(err.Error(), "UNIQUE") {
-			return fmt.Errorf("key %q is already in database", name)
+			fmt.Fprintf(os.Stderr, "Error: key %q already exists\n", name)
+			return nil
 		}
 		return fmt.Errorf("write to database: %w", err)
 	}

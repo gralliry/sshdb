@@ -21,7 +21,8 @@ func exportFunc(cmd *cobra.Command, args []string) error {
 
 	rec, err := Get(name)
 	if err != nil {
-		return err
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		return nil
 	}
 	if privPath == "" {
 		privPath = filepath.Join(outputDir, name)

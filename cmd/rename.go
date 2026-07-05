@@ -14,12 +14,14 @@ func renameFunc(_ *cobra.Command, args []string) error {
 	if ok, err := Exists(oldName); err != nil {
 		return err
 	} else if !ok {
-		return fmt.Errorf("key %q not found", oldName)
+		fmt.Fprintf(os.Stderr, "Error: key %q not found\n", oldName)
+		return nil
 	}
 	if ok, err := Exists(newName); err != nil {
 		return err
 	} else if ok {
-		return fmt.Errorf("key %q already exists", newName)
+		fmt.Fprintf(os.Stderr, "Error: key %q already exists\n", newName)
+		return nil
 	}
 
 	result := db.Conn().Model(&db.Key{}).Where("name = ?", oldName).Update("name", newName)
@@ -27,7 +29,8 @@ func renameFunc(_ *cobra.Command, args []string) error {
 		return fmt.Errorf("rename in database: %w", result.Error)
 	}
 	if result.RowsAffected == 0 {
-		return fmt.Errorf("key %q not found", oldName)
+		fmt.Fprintf(os.Stderr, "Error: key %q not found\n", oldName)
+		return nil
 	}
 	fmt.Fprintf(os.Stderr, "Renamed %q → %q\n", oldName, newName)
 	return nil

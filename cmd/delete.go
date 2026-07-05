@@ -16,7 +16,8 @@ func deleteFunc(_ *cobra.Command, args []string) error {
 		return fmt.Errorf("delete from database: %w", result.Error)
 	}
 	if result.RowsAffected == 0 {
-		return fmt.Errorf("key %q not found", name)
+		fmt.Fprintf(os.Stderr, "Error: key %q not found\n", name)
+		return nil
 	}
 	fmt.Fprintf(os.Stderr, "Key %q deleted\n", name)
 	return nil
