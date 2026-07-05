@@ -38,7 +38,7 @@ var renameCmd = &cobra.Command{
 	Aliases: []string{"rn"},
 	Short:   "Rename key",
 	Long:    `Change the name of a key in the database.`,
-	Args:    exactArgs(2),
+	Args:    cobra.ExactArgs(2),
 	RunE:    renameFunc,
 }
 

@@ -6,19 +6,8 @@ import (
 
 	"github.com/gralliry/sshdb/db"
 
-	"github.com/spf13/cobra"
 	"gorm.io/gorm"
 )
-
-func exactArgs(n int) cobra.PositionalArgs {
-	return func(cmd *cobra.Command, args []string) error {
-		if len(args) != n {
-			cmd.Help()
-			return fmt.Errorf("accepts %d arg(s), received %d", n, len(args))
-		}
-		return nil
-	}
-}
 
 func Get(name string) (*db.Key, error) {
 	var rec db.Key

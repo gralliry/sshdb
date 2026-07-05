@@ -70,7 +70,7 @@ var exportCmd = &cobra.Command{
 
 Default output paths: <output>/<name> and <output>/<name>.pub.
 Use --priv / --pub to specify custom paths.`,
-	Args: exactArgs(1),
+	Args: cobra.ExactArgs(1),
 	RunE: exportFunc,
 }
 

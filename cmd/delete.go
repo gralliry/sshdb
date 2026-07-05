@@ -27,7 +27,7 @@ var deleteCmd = &cobra.Command{
 	Aliases: []string{"del", "d", "rm", "remove"},
 	Short:   "Delete key",
 	Long:    `Remove an SSH key from the database.`,
-	Args:    exactArgs(1),
+	Args:    cobra.ExactArgs(1),
 	RunE:    deleteFunc,
 }
 
